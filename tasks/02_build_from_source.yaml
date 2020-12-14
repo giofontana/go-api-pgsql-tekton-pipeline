@@ -1,0 +1,17 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: build_from_source
+spec:
+  workspaces:
+    - name: source  
+  steps:
+    - name: build_from_source
+      image: quay.io/openshift/origin-cli:latest
+      workingDir: /workspace/source  
+      command: ["/bin/bash", "-c"]
+      args:
+        - |-
+          echo "**** BUILD FROM SOURCE CODE ****"
+          oc new-build ../api-pgsql/ --docker-image=golang:1.13.4-ubi7
