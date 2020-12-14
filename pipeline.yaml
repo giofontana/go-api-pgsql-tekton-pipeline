@@ -3,7 +3,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
-  name: Build Go API w/ pgsql
+  name: build-go-api-pgsql
 spec:
   workspaces:
   - name: shared-workspace
