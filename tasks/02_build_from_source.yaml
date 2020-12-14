@@ -14,4 +14,6 @@ spec:
       args:
         - |-
           echo "**** BUILD FROM SOURCE CODE ****"
-          oc new-build ../api-pgsql/ --docker-image=golang:1.13.4-ubi7
+          oc apply -f k8s/imagestream.yaml
+
+          oc apply -f k8s/buildconfig.yaml
