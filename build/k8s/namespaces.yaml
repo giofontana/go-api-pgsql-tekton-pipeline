@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: go-api-pgsql-dev
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: go-api-pgsql-qa
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: go-api-pgsql-prd

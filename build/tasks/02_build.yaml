@@ -1,0 +1,50 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: build-with-buildah
+spec:
+  params:
+    - name: TLSVERIFY
+      description: Verify the TLS on the registry endpoint
+      type: string
+      default: 'false'
+#    - name: STORAGE_DRIVER
+#      description: The Buildah storage STORAGE_DRIVER
+#      type: string  
+#      default: 'overlayfs'         
+  resources:
+    outputs:
+      - name: output-image
+        type: image       
+  workspaces:
+    - name: source  
+  steps:
+  - name: create-imagestream
+    image: quay.io/openshift/origin-cli:latest
+    workingDir: /workspace/source  
+    command: ["/bin/bash", "-c"]
+    args:
+      - |-
+        echo "**** CREATE IMAGE STREAM ****"
+        pwd
+        ls -lhs .
+        oc apply -f k8s/imagestream.yaml  
+        
+  - name: build
+    command:
+      - buildah
+      - bud
+      - '--tls-verify=$(params.TLSVERIFY)'
+#      - '--storage-driver=$(params.STORAGE_DRIVER)'
+      - '--layers'
+      - '-f'
+      - Dockerfile
+      - '-t'
+      - $(resources.outputs.output-image.url)
+      - .
+    image: registry.redhat.io/rhel8/buildah
+    resources: {}
+    securityContext:
+      privileged: true
+    workingDir: /workspace/source 
