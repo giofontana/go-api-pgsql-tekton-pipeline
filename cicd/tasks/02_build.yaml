@@ -27,7 +27,7 @@ spec:
     args:
       - |-
         echo "**** CREATE IMAGE STREAM ****"
-        oc apply -f build/k8s/imagestream.yaml  
+        oc apply -f build/k8s/api/imagestream.yaml  
         
   - name: build
     command:
