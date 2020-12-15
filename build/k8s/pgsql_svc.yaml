@@ -11,6 +11,5 @@ spec:
       targetPort: 5432
   selector:
     name: postgresql
-  clusterIP: 172.30.70.175
   type: ClusterIP
   sessionAffinity: None
