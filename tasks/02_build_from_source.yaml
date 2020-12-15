@@ -13,7 +13,11 @@ spec:
       command: ["/bin/bash", "-c"]
       args:
         - |-
-          echo "**** BUILD FROM SOURCE CODE ****"
+          echo "**** CREATE IMAGE STREAM ****"
           oc apply -f k8s/imagestream.yaml
 
+          echo "**** CREATE BUILD CONFIGURATION ****"
           oc apply -f k8s/buildconfig.yaml
+
+          echo "**** START BUILD FROM SOURCE ****"
+          oc start-build go-api-pgsql -n go-api-pgsql-dev
