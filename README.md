@@ -33,5 +33,8 @@ clusterrole.rbac.authorization.k8s.io/cluster-admin added: "system:serviceaccoun
 
 https://www.openshift.com/blog/guide-to-openshift-pipelines-part-1-introducing-openshift-pipelines
 
+######
 TODO:
-- 
+- Use kustomize
+- Split in 3 different pipelines: Build and Deploy in Dev, Deploy in QA, Deploy in PRD
+######

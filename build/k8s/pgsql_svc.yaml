@@ -1,0 +1,16 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: postgresql
+  namespace: go-api-pgsql-dev
+spec:
+  ports:
+    - name: postgresql
+      protocol: TCP
+      port: 5432
+      targetPort: 5432
+  selector:
+    name: postgresql
+  clusterIP: 172.30.70.175
+  type: ClusterIP
+  sessionAffinity: None

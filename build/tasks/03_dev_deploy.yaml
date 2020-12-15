@@ -8,7 +8,7 @@ spec:
     - name: source  
   steps:
 
-  - name: create-pgsql-secrets
+  - name: pgsql-secrets
     image: quay.io/openshift/origin-cli:latest
     workingDir: /workspace/source  
     command: ["/bin/bash", "-c"]
@@ -17,7 +17,7 @@ spec:
         echo "**** DEPLOY POSTGRESQL SECRETS IN DEV ENV ****"
         oc apply -f build/k8s/pgsql_secret.yaml --wait
 
-  - name: create-pgsql-pvc
+  - name: pgsql-pvc
     image: quay.io/openshift/origin-cli:latest
     workingDir: /workspace/source  
     command: ["/bin/bash", "-c"]
@@ -26,7 +26,17 @@ spec:
         echo "**** DEPLOY POSTGRESQL PVC IN DEV ENV ****"
         oc apply -f build/k8s/pgsql_pvc.yaml --wait
 
-  - name: deploy-pgsql-in-dev
+
+  - name: pgsql-service
+    image: quay.io/openshift/origin-cli:latest
+    workingDir: /workspace/source  
+    command: ["/bin/bash", "-c"]
+    args:
+      - |-
+        echo "**** DEPLOY POSTGRESQL SERVICE IN DEV ENV ****"
+        oc apply -f build/k8s/pgsql_svc.yaml --wait
+
+  - name: deploy-pgsql
     image: quay.io/openshift/origin-cli:latest
     workingDir: /workspace/source  
     command: ["/bin/bash", "-c"]
@@ -35,7 +45,7 @@ spec:
         echo "**** DEPLOY POSTGRESQL IN DEV ENV ****"
         oc apply -f build/k8s/pgsql_dc.yaml --wait
 
-  - name: deploy-in-dev
+  - name: deploy-api-pgsql
     image: quay.io/openshift/origin-cli:latest
     workingDir: /workspace/source  
     command: ["/bin/bash", "-c"]
