@@ -1,0 +1,25 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: build-with-buildah
+spec:
+  workspaces:
+    - name: source  
+  steps:
+  - name: build
+    command:
+      - buildah
+      - bud
+      - '--tls-verify=false'
+      - '--layers'
+      - '-f'
+      - api-pgsql/Dockerfile
+      - '-t'
+      - $(resources.outputs.intermediate-image.url)
+      - .
+    image: registry.redhat.io/rhel8/buildah
+    resources: {}
+    securityContext:
+      privileged: true
+    workingDir: /workspace/source 
