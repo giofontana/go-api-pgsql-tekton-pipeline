@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: go-api-pgsql-dev
+  namespace: go-api-pgsql-dev
+spec:
+  ports:
+    - name: 8080-tcp
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+  selector:
+      app: go-api-pgsql
+      deploymentconfig: go-api-pgsql
+  type: ClusterIP

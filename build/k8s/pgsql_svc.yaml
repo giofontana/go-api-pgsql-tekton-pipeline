@@ -12,4 +12,3 @@ spec:
   selector:
     name: postgresql
   type: ClusterIP
-  sessionAffinity: None

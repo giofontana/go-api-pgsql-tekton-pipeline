@@ -1,0 +1,16 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: go-api-pgsql-dev
+  namespace: go-api-pgsql-dev
+  labels:
+    app: go-api-pgsql-dev
+spec:
+  host: go-api-pgsql-dev.apps.ocp.rhbr-consulting.com
+  to:
+    kind: Service
+    name: go-api-pgsql-dev
+    weight: 100
+  port:
+    targetPort: 8080-tcp
+  wildcardPolicy: None
