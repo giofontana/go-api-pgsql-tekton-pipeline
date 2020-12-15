@@ -32,3 +32,6 @@ pipeline.tekton.dev/build-go-api-pgsql created
 clusterrole.rbac.authorization.k8s.io/cluster-admin added: "system:serviceaccount:go-api-pgsql-tekton-cicd:pipeline"
 
 https://www.openshift.com/blog/guide-to-openshift-pipelines-part-1-introducing-openshift-pipelines
+
+TODO:
+- 
