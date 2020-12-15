@@ -2,14 +2,14 @@ apiVersion: v1
 kind: BuildConfig
 metadata:
   labels:
-    app: go-api-pgsql
+    build: go-api-pgsql
   name: go-api-pgsql
   namespace: go-api-pgsql-dev
 spec:
   output:
     to:
       kind: ImageStreamTag
-      name: golang-builder-is:latest
+      name: api-pgsql-builder-is:latest
   resources: {}
   source:
     git:
