@@ -4,7 +4,8 @@ apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
   generation: 1
-  name: golang-builder-is
+  name: api-pgsql-builder-is
+  namespace: go-api-pgsql-dev
 spec:
   lookupPolicy:
     local: false

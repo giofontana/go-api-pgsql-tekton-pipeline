@@ -20,4 +20,4 @@ spec:
           oc apply -f k8s/buildconfig.yaml
 
           echo "**** START BUILD FROM SOURCE ****"
-          oc start-build go-api-pgsql -n go-api-pgsql-dev
+          oc start-build go-api-pgsql -n go-api-pgsql-dev --wait
