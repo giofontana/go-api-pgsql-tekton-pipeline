@@ -1,3 +1,4 @@
+
 ---
 apiVersion: tekton.dev/v1beta1
 kind: Task
@@ -27,7 +28,7 @@ spec:
     args:
       - |-
         echo "**** CREATE IMAGE STREAM ****"
-        oc apply -f build/k8s/api/imagestream.yaml  
+        oc apply -f cicd/k8s/api/imagestream.yaml  
         
   - name: build
     command:
