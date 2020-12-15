@@ -7,5 +7,5 @@ metadata:
 spec:
   params:
   - name: url
-    value: image-registry.openshift-image-registry.svc:5000/go-api-pgsql-tekton-cicd/go-api-pgsql-is
+    value: image-registry.openshift-image-registry.svc:5000/go-api-pgsql-dev/go-api-pgsql-is
   type: image 

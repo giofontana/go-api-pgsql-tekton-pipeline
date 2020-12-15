@@ -6,7 +6,7 @@ metadata:
   labels:
     build: go-api-pgsql
   generation: 1
-  name: api-pgsql-builder-is
+  name: go-api-pgsql-is
   namespace: go-api-pgsql-dev
 spec:
   lookupPolicy:

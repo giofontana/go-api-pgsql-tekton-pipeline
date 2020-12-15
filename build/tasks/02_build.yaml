@@ -9,10 +9,10 @@ spec:
       description: Verify the TLS on the registry endpoint
       type: string
       default: 'false'
-#    - name: STORAGE_DRIVER
-#      description: The Buildah storage STORAGE_DRIVER
-#      type: string  
-#      default: 'overlayfs'         
+    - name: STORAGE_DRIVER
+      description: The Buildah storage STORAGE_DRIVER
+      type: string  
+      default: "overlay"        
   resources:
     outputs:
       - name: output-image
@@ -27,16 +27,14 @@ spec:
     args:
       - |-
         echo "**** CREATE IMAGE STREAM ****"
-        pwd
-        ls -lhs .
-        oc apply -f k8s/imagestream.yaml  
+        oc apply -f build/k8s/imagestream.yaml  
         
   - name: build
     command:
       - buildah
       - bud
       - '--tls-verify=$(params.TLSVERIFY)'
-#      - '--storage-driver=$(params.STORAGE_DRIVER)'
+      - '--storage-driver=$(params.STORAGE_DRIVER)'
       - '--layers'
       - '-f'
       - Dockerfile
@@ -48,3 +46,27 @@ spec:
     securityContext:
       privileged: true
     workingDir: /workspace/source 
+    volumeMounts:
+      - name: pipeline-cache
+        mountPath: /var/lib/containers    
+
+  - name: push-image-to-openshift
+    command:
+      - buildah
+      - push
+      - '--storage-driver=$(params.STORAGE_DRIVER)'
+      - '--tls-verify=$(params.TLSVERIFY)'
+      - $(resources.outputs.output-image.url)
+      - 'docker://$(resources.outputs.output-image.url)'
+    image: registry.redhat.io/rhel8/buildah
+    resources: {}
+    securityContext:
+      privileged: true
+    volumeMounts:
+      - name: pipeline-cache
+        mountPath: /var/lib/containers
+
+  volumes:
+    - name: pipeline-cache
+      persistentVolumeClaim:
+        claimName: pipeline-task-cache-pvc        

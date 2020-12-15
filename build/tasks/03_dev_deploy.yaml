@@ -1,0 +1,17 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: deploy-in-dev
+spec:         
+  workspaces:
+    - name: source  
+  steps:
+  - name: deploy-in-dev
+    image: quay.io/openshift/origin-cli:latest
+    workingDir: /workspace/source  
+    command: ["/bin/bash", "-c"]
+    args:
+      - |-
+        echo "**** DEPLOY APP IN DEV ENV ****"
+        oc apply -f build/k8s/deployment.yaml  

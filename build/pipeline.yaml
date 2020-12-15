@@ -53,3 +53,13 @@ spec:
       workspace: shared-workspace
     runAfter:
     - fetch-repository      
+
+  - name: deploy-in-dev
+    taskRef:
+      kind: Task        
+      name: deploy-in-dev
+    workspaces:
+    - name: source
+      workspace: shared-workspace      
+    runAfter:
+    - build-from-source  

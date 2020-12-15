@@ -31,4 +31,4 @@ pipeline.tekton.dev/build-go-api-pgsql created
 > oc adm policy add-cluster-role-to-user cluster-admin system:serviceaccount:go-api-pgsql-tekton-cicd:pipeline
 clusterrole.rbac.authorization.k8s.io/cluster-admin added: "system:serviceaccount:go-api-pgsql-tekton-cicd:pipeline"
 
-https://opensource.com/article/19/5/creating-source-image-build-pipeline-okd
+https://www.openshift.com/blog/guide-to-openshift-pipelines-part-1-introducing-openshift-pipelines
