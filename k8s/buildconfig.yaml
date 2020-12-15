@@ -21,6 +21,6 @@ spec:
     dockerStrategy:
       from:
         kind: ImageStreamTag
-        name: golang:1.13.4-ubi7
         namespace: openshift
+        name: 'golang:latest'
     type: Docker
