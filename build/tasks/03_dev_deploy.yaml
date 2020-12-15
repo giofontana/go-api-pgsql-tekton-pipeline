@@ -15,7 +15,7 @@ spec:
     args:
       - |-
         echo "**** DEPLOY POSTGRESQL SECRETS IN DEV ENV ****"
-        oc apply -f build/k8s/pgsql_secret.yaml --wait
+        oc apply -f build/k8s/pgsql/pgsql_secret.yaml --wait
 
   - name: pgsql-pvc
     image: quay.io/openshift/origin-cli:latest
@@ -24,7 +24,7 @@ spec:
     args:
       - |-
         echo "**** DEPLOY POSTGRESQL PVC IN DEV ENV ****"
-        oc apply -f build/k8s/pgsql_pvc.yaml --wait
+        oc apply -f build/k8s/pgsql/pgsql_pvc.yaml --wait
 
 
   - name: pgsql-service
@@ -34,7 +34,7 @@ spec:
     args:
       - |-
         echo "**** DEPLOY POSTGRESQL SERVICE IN DEV ENV ****"
-        oc apply -f build/k8s/pgsql_svc.yaml --wait
+        oc apply -f build/k8s/pgsql/pgsql_svc.yaml --wait
 
   - name: deploy-pgsql
     image: quay.io/openshift/origin-cli:latest
@@ -43,7 +43,7 @@ spec:
     args:
       - |-
         echo "**** DEPLOY POSTGRESQL IN DEV ENV ****"
-        oc apply -f build/k8s/pgsql_dc.yaml --wait
+        oc apply -f build/k8s/pgsql/pgsql_dc.yaml --wait
 
   - name: deploy-api-pgsql
     image: quay.io/openshift/origin-cli:latest
@@ -52,7 +52,7 @@ spec:
     args:
       - |-
         echo "**** DEPLOY APP IN DEV ENV ****"
-        oc apply -f build/k8s/deployment.yaml --wait
+        oc apply -f build/k8s/api/deployment.yaml --wait
 
   - name: api-pgsql-service
     image: quay.io/openshift/origin-cli:latest
@@ -61,7 +61,7 @@ spec:
     args:
       - |-
         echo "**** DEPLOY SERVICE IN DEV ENV ****"
-        oc apply -f build/k8s/service.yaml --wait
+        oc apply -f build/k8s/api/service.yaml --wait
 
   - name: api-pgsql-route
     image: quay.io/openshift/origin-cli:latest
@@ -70,4 +70,4 @@ spec:
     args:
       - |-
         echo "**** DEPLOY ROUTE IN DEV ENV ****"
-        oc apply -f build/k8s/route.yaml --wait        
+        oc apply -f build/k8s/api/route.yaml --wait        
