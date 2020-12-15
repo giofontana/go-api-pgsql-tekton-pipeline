@@ -7,6 +7,34 @@ spec:
   workspaces:
     - name: source  
   steps:
+
+  - name: create-pgsql-secrets
+    image: quay.io/openshift/origin-cli:latest
+    workingDir: /workspace/source  
+    command: ["/bin/bash", "-c"]
+    args:
+      - |-
+        echo "**** DEPLOY POSTGRESQL SECRETS IN DEV ENV ****"
+        oc create secret generic postgresql --from-literal=database-name=goapidb --from-literal=database-password=dbpass --from-literal=database-user=dbuser -n go-api-pgsql-dev
+
+  - name: create-pgsql-pvc
+    image: quay.io/openshift/origin-cli:latest
+    workingDir: /workspace/source  
+    command: ["/bin/bash", "-c"]
+    args:
+      - |-
+        echo "**** DEPLOY POSTGRESQL PVC IN DEV ENV ****"
+        oc apply -f build/k8s/pgsql_pvc.yaml
+
+  - name: deploy-pgsql-in-dev
+    image: quay.io/openshift/origin-cli:latest
+    workingDir: /workspace/source  
+    command: ["/bin/bash", "-c"]
+    args:
+      - |-
+        echo "**** DEPLOY POSTGRESQL IN DEV ENV ****"
+        oc apply -f build/k8s/pgsql_dc.yaml  
+
   - name: deploy-in-dev
     image: quay.io/openshift/origin-cli:latest
     workingDir: /workspace/source  
