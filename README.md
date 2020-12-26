@@ -16,16 +16,16 @@ to build a new example application in Python. Or use kubectl to deploy a simple 
 NAME       SECRETS   AGE
 pipeline   2         23s
 
-> oc create -f k8s/pipeline-pvc.yaml
+> oc create -f cicd/k8s/pipeline/source-pvc.yaml
 persistentvolumeclaim/source-pvc created
 
-> oc apply -f tasks/01_create_namespaces.yaml
+> oc create -f cicd/k8s/pipeline/pipeline-task-cache-pvc.yaml
+persistentvolumeclaim/pipeline-task-cache-pvc created
+
+> cat cicd/tasks/*.yaml | oc apply -f -
 task.tekton.dev/create-namespaces created
 
-> oc apply -f tasks/02_build_from_source.yaml
-task.tekton.dev/build-from-source created
-
-> oc apply -f pipeline.yaml
+> oc apply -f cicd/pipeline.yaml
 pipeline.tekton.dev/build-go-api-pgsql created
 
 > oc adm policy add-cluster-role-to-user cluster-admin system:serviceaccount:go-api-pgsql-tekton-cicd:pipeline

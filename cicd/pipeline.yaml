@@ -39,7 +39,17 @@ spec:
       value: "true"
     - name: revision
       value: $(params.git-revision)
-      
+
+  - name: create-namespaces
+    taskRef:
+      kind: Task        
+      name: create-namespaces
+    workspaces:
+    - name: source
+      workspace: shared-workspace
+    runAfter:
+    - fetch-repository    
+
   - name: build-from-source
     resources:
       outputs:
@@ -52,7 +62,7 @@ spec:
     - name: source
       workspace: shared-workspace
     runAfter:
-    - fetch-repository      
+    - create-namespaces      
 
   - name: deploy-in-dev
     taskRef:

@@ -15,4 +15,4 @@ spec:
       args:
         - |-
           echo "**** Creating namespaces ****"
-          oc apply -f "k8s/namespaces.yaml"
+          oc apply -f "cicd/k8s/namespaces.yaml"
